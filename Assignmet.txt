@@ -1,0 +1,58 @@
+PA2579 – Adaptive-Lean Software Testing
+Assignment 2 – Unit Testing
+Student name: Ilie Iulian Cordus
+Part 1 – Report
+
+Section 1: Project Description
+The project used in this report is a small Java application created for learning and practicing unit testing techniques. The domain of the project is software development education, specifically testing of simple mathematical calculations.
+The application contains a class called WeightHelper, which calculates the Body Mass Index (BMI) based on a person’s height and weight. The application also classifies the BMI value into categories such as underweight, normal weight, overweight, or obese.
+The project was developed by a single developer (myself) as part of a university assignment. However, the practices used in the project reflect typical activities in real software development teams.
+This project does not depend on other projects and it was developed from scratch. The goal was not to build a large system but to focus on applying unit testing techniques such as equivalence partitioning and boundary value analysis.
+Although the project was small, the development approach followed some agile principles. The code was implemented in small increments and tested frequently. Unit tests were written to validate the correctness of the BMI calculations and the classification logic.
+The project demonstrates how unit tests can be used to ensure correctness of individual methods and how testing techniques can help identify edge cases and potential defects.
+
+Section 2: Roles and Responsibilities
+In this project the main role involved was the developer, who was also responsible for writing and executing unit tests.
+In a real software development environment several roles would typically be involved. Developers are responsible for writing the application code and creating unit tests for the methods they implement. Testers or quality assurance engineers may review the tests or design additional test scenarios. The product owner defines functional requirements and expected behavior.
+In this project the responsibilities were simplified. The developer was responsible for:
+•	Implementing the WeightHelper class
+•	Designing test cases using equivalence partitioning and boundary value analysis
+•	Writing automated unit tests using the JUnit framework
+•	Running the tests and verifying the correctness of the results
+The developer was also responsible for generating additional test cases automatically using tools such as Randoop or EvoSuite.
+All test artefacts, including manual and automatically generated test cases, were stored in the same project repository together with the source code.
+________________________________________
+Section 3: Unit Test Activities and Practices
+The unit test activities were closely integrated with the software development process.
+After implementing the methods in the WeightHelper class, unit tests were created to verify their behavior. The tests were written using JUnit, which allows automated execution of tests.
+Two testing techniques were used when designing test cases:
+Equivalence Partitioning (EP) – Inputs were divided into groups that should produce similar results. For example, different BMI ranges correspond to different weight categories.
+Boundary Value Analysis (BVA) – Special attention was given to values around important boundaries, such as BMI values close to 18.5, 25, and 30.
+The tests were executed automatically from the development environment. This allows fast feedback when the code changes.
+The project did not strictly follow Test-Driven Development (TDD), but the tests were written immediately after implementing the methods. This approach still helped ensure that the logic worked correctly and that edge cases were handled properly.
+Automatic test generation tools such as Randoop and EvoSuite were also used to create additional tests. These tests were later compared with the manually written tests.
+
+
+Section 4: Environment and Tools
+The project was developed using the following tools and environment:
+Programming language: Java
+Development environment: IntelliJ IDEA (or Eclipse if you prefer)
+Build tool: Maven (optional if you used it)
+For unit testing the project used the JUnit testing framework, which is one of the most common xUnit frameworks for Java.
+JUnit allows developers to define test methods that automatically verify the behavior of application code.
+For automatic test generation the following tools were used:
+•	Randoop – generates unit tests by randomly exploring method calls
+•	EvoSuite – generates test suites using evolutionary algorithms
+To evaluate the effectiveness of the test suites, mutation testing tools such as MuJava can be used. Mutation testing modifies the code to create artificial defects (mutants) and checks whether the tests detect them.
+These tools help evaluate how effective the tests are at detecting errors.
+
+Section 5: Discussion and Concluding Remarks
+From a Lean perspective, unit testing plays an important role in improving software quality and reducing waste.
+In this project, unit tests helped detect errors early in the development process. This reduces the cost of fixing defects later in the project lifecycle. Early feedback is an important principle in Lean software development.
+However, some activities can also create waste. Writing too many tests for trivial functionality may increase development time without providing significant value. Similarly, automatically generated tests may sometimes be difficult to understand or maintain.
+Manual tests created using equivalence partitioning and boundary value analysis were generally easier to understand and clearly related to the program requirements.
+Automatically generated tests from tools such as Randoop or EvoSuite were often more complex and harder to read. However, they can sometimes detect edge cases that manual tests might miss.
+From a Lean perspective, the best approach is likely a combination of both techniques. Developers should design clear manual tests for important functional behavior while also using automated tools to increase coverage and detect unexpected scenarios.
+If this project were developed further, additional improvements could include integrating unit tests into a continuous integration pipeline, increasing mutation coverage, and applying Test-Driven Development to guide the design of the code.
+Overall, this experience demonstrates that unit testing is a valuable practice for improving software reliability and supporting Lean development principles.
+
