@@ -4,14 +4,32 @@ Student name: Ilie Iulian Cordus
 Part 1 – Report
 
 Section 1: Project Description
-The project used in this report is a small Java application created for learning and practicing unit testing techniques. The domain of the project is software development education, specifically testing of simple mathematical calculations.
-The application contains a class called WeightHelper, which calculates the Body Mass Index (BMI) based on a person’s height and weight. The application also classifies the BMI value into categories such as underweight, normal weight, overweight, or obese.
-The project was developed by a single developer (myself) as part of a university assignment. However, the practices used in the project reflect typical activities in real software development teams.
-This project does not depend on other projects and it was developed from scratch. The goal was not to build a large system but to focus on applying unit testing techniques such as equivalence partitioning and boundary value analysis.
-Although the project was small, the development approach followed some agile principles. The code was implemented in small increments and tested frequently. Unit tests were written to validate the correctness of the BMI calculations and the classification logic.
-The project demonstrates how unit tests can be used to ensure correctness of individual methods and how testing techniques can help identify edge cases and potential defects.
+The project used in this report is a small Java application created for learning 
+and practicing unit testing techniques. 
+The domain of the project is software development education, specifically 
+testing of simple mathematical calculations.
+
+The application contains a class called WeightHelper, 
+which calculates the Body Mass Index (BMI) based 
+on a person’s height and weight. 
+The application also classifies the BMI value into categories such as underweight, 
+normal weight, overweight, or obese.
+The project was developed by a single developer as part of a university assignment. 
+However, the practices used in the project reflect typical activities 
+in real software development teams.
+The project git repo is https://github.com/icordus/PA2579.git
+This project does not depend on other projects and it was developed from scratch. 
+The goal was not to build a large system but to focus on applying unit testing 
+techniques such as equivalence partitioning and boundary value analysis.
+Although the project was small, the development approach followed some agile principles. 
+The code was implemented in small increments and tested frequently. 
+Unit tests were written to validate the correctness of the BMI calculations and 
+the classification logic.
+The project demonstrates how unit tests can be used to ensure correctness of 
+individual methods and how testing techniques can help identify edge cases and potential defects.
 
 Section 2: Roles and Responsibilities
+
 In this project the main role involved was the developer, who was also responsible for writing and executing unit tests.
 In a real software development environment several roles would typically be involved. Developers are responsible for writing the application code and creating unit tests for the methods they implement. Testers or quality assurance engineers may review the tests or design additional test scenarios. The product owner defines functional requirements and expected behavior.
 In this project the responsibilities were simplified. The developer was responsible for:
