@@ -12,19 +12,30 @@ The `WeightHelper` class provides two main functionalities:
 
 ### Prerequisites
 - Java 11 or higher
-- JUnit 5 for testing
+- JUnit 5 console launcher JAR (1.9.2) in the project root:
+  ```
+  curl -LO https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.2/junit-platform-console-standalone-1.9.2.jar
+  ```
 
-### Running the Code
-1. Compile the classes:
-   ```
-   javac -cp . src/main/java/WeightHelper.java
-   javac -cp .:junit-platform-console-standalone-1.9.2.jar src/test/java/TestWeightHelper.java
-   ```
+### Build and Test
+Use a dedicated `out` folder to avoid stale class files.
 
-2. Run tests:
-   ```
-   java -cp .:junit-platform-console-standalone-1.9.2.jar org.junit.platform.console.ConsoleLauncher --class-path . --scan-classpath
-   ```
+**Linux/macOS**
+```bash
+rm -rf out && mkdir out
+javac -d out src/main/java/WeightHelper.java
+javac -cp "out:junit-platform-console-standalone-1.9.2.jar" -d out src/test/java/TestWeightHelper.java
+java -jar junit-platform-console-standalone-1.9.2.jar --class-path out --scan-class-path
+```
+
+**Windows (PowerShell)**
+```powershell
+Remove-Item -Recurse -Force out -ErrorAction Ignore
+New-Item -ItemType Directory -Force -Path out | Out-Null
+javac -d out src/main/java/WeightHelper.java
+javac -cp "out;junit-platform-console-standalone-1.9.2.jar" -d out src/test/java/TestWeightHelper.java
+java -jar junit-platform-console-standalone-1.9.2.jar --class-path out --scan-class-path
+```
 
 ### Example
 ```java
