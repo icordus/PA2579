@@ -21,6 +21,7 @@ The project demonstrates how unit tests can be used to ensure correctness of ind
 and how testing techniques can help identify edge cases and potential defects.
 
 Section 2: Roles and Responsibilities
+
 In this project the main role involved was the developer, who was also responsible for writing and executing unit tests.
 In a real software development environment several roles would typically be involved. Developers are responsible 
 for writing the application code and creating unit tests for the methods they implement. 
