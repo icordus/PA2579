@@ -34,12 +34,14 @@ public class WeightHelper {
      */
     public String getCategory(double heightCm, double weightKg) {
         double bmi = calculateBmi(heightCm, weightKg);
+        // Round to 2 decimals to avoid boundary drift (e.g., 24.999999 vs 25.0)
+        double roundedBmi = Math.round(bmi * 100.0) / 100.0;
 
-        if (bmi < 18.5) {
+        if (roundedBmi < 18.5) {
             return "Underweight";
-        } else if (bmi < 25.0) {
+        } else if (roundedBmi < 25.0) {
             return "Normal weight";
-        } else if (bmi < 30.0) {
+        } else if (roundedBmi < 30.0) {
             return "Overweight";
         } else {
             return "Obese";
