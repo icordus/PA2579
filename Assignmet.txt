@@ -5,7 +5,7 @@ Part 1 – Report
 
 Section 1: Project Description
 The project used in this report is a small Java application created for learning and practicing unit testing techniques. 
-The domain of the project is software development education, specifically testing of simple mathematical calculations.
+The project goal is software development education, specifically testing of simple mathematical calculations.
 The application contains a class called WeightHelper, which calculates the Body Mass Index (BMI) based 
 on a person’s height and weight. 
 The application also classifies the BMI value into categories such as underweight, normal weight, overweight, or obese.
@@ -19,6 +19,8 @@ The code was implemented in small increments and tested several times.
 Unit tests were written to validate the correctness of the BMI calculations and the classification logic.
 The project demonstrates how unit tests can be used to ensure correctness of individual methods 
 and how testing techniques can help identify edge cases and potential defects.
+The code repository for this project is available on GitHub at the following link:
+https://github.com/icordus/PA2579.git
 
 Section 2: Roles and Responsibilities
 
