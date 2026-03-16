@@ -31,7 +31,7 @@ In this project the responsibilities were simplified. The developer was responsi
 •	Implementing the WeightHelper class
 •	Designing test cases using equivalence partitioning and boundary value analysis
 •	Writing automated unit tests using the JUnit framework
-•	Running the tests and verifying the correctness of the results
+•	Running the tests and verifying the results are correct
 The developer was also responsible for generating additional test cases automatically using tools such as Randoop or EvoSuite.
 All test artefacts, including manual and automatically generated test cases, were stored in the same project repository 
 together with the source code.
