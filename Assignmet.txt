@@ -34,10 +34,10 @@ In this project the responsibilities were simplified. The developer was responsi
 •	Designing test cases using equivalence partitioning and boundary value analysis
 •	Writing automated unit tests using the JUnit framework
 •	Running the tests and verifying the results are correct
-The developer was also responsible for generating additional test cases automatically using tools such as Randoop or EvoSuite.
+The developer could also use tools such as Randoop or EvoSuite to generate additional automated test cases.
 All test artefacts, including manual and automatically generated test cases, were stored in the same project repository 
 together with the source code.
-________________________________________
+
 Section 3: Unit Test Activities and Practices
 The unit test activities were closely integrated with the software development process.
 After implementing the methods in the WeightHelper class, unit tests were created to verify their behavior. 
@@ -49,26 +49,53 @@ Boundary Value Analysis (BVA) – Special attention was given to values around i
 The tests were executed automatically from the development environment. This allows fast feedback when the code changes.
 The project did not strictly follow Test-Driven Development (TDD), but the tests were written immediately after implementing the methods. 
 This approach still helped ensure that the logic worked correctly and that edge cases were handled properly.
-Automatic test generation tools such as Randoop and EvoSuite were also used to create additional tests. 
+Automatic test generation tools such as Randoop and EvoSuite could also be used to create additional tests.
+These tools automatically generate unit tests and can help increase coverage or detect unexpected behaviours. 
 These tests were later compared with the manually written tests.
 
 
 Section 4: Environment and Tools
 The project was developed using the following tools and environment:
+
 Programming language: Java
-Development environment: IntelliJ IDEA (or Eclipse if you prefer)
-Build tool: Maven (optional if you used it)
-For unit testing the project used the JUnit testing framework, which is one of the most common xUnit frameworks for Java.
-JUnit allows developers to define test methods that automatically verify the behavior of application code.
-For automatic test generation the following tools were used:
-•	Randoop – generates unit tests by randomly exploring method calls
-•	EvoSuite – generates test suites using evolutionary algorithms
-To evaluate the effectiveness of the test suites, mutation testing tools such as MuJava can be used. 
-Mutation testing modifies the code to create artificial defects (mutants) and checks whether the tests detect them.
-These tools help evaluate how effective the tests are at detecting errors.
+
+Operating system: Ubuntu Linux (virtual machine)
+
+Development environment: IntelliJ IDEA
+
+Unit testing framework: JUnit 5
+
+JUnit was used to implement automated unit tests for the methods in the WeightHelper class.
+The tests were executed using the JUnit Platform Console Standalone tool.
+
+Example command used to execute the tests:
+
+java -jar junit-platform-console-standalone-1.9.2.jar \
+--class-path out \
+--scan-class-path
+
+The command scans the compiled classes in the out directory and automatically runs all test classes.
+
+During execution the test framework reported the results of the test suite.
+In total 12 unit tests were executed successfully, verifying the correctness of the BMI calculation and the classification logic.
+
+The test cases focused on:
+
+normal input values
+
+invalid inputs (negative height or weight)
+
+boundary values for BMI categories (18.5, 25, and 30)
+
+Automatic test generation tools such as Randoop and EvoSuite can also be used in similar projects to generate additional test cases automatically. 
+These tools explore program behaviour and generate JUnit tests that increase code coverage and may reveal unexpected edge cases.
+For automatic test generation the following tools can be used:
+•	Randoop generates unit tests using feedback-directed random test generation.
+•	EvoSuite automatically generates JUnit test suites for Java using search-based techniques, 
+typically genetic algorithms, to optimize coverage goals such as branch coverage.
 
 Section 5: Discussion and Concluding Remarks
-From a Lean perspective, unit testing plays an important role in improving software quality and reducing waste.
+From a Lean perspective, unit testing plays a very important role in improving software quality and reducing waste.
 In this project, unit tests helped detect errors early in the development process. 
 This reduces the cost of fixing defects later in the project lifecycle. 
 Early feedback is an important principle in Lean software development.
