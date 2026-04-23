@@ -41,7 +41,7 @@ class BasePage:
 
     def text_of(self, locator: Locator) -> str:
         """Return element text."""
-        return self.wait.until(EC.visibility_of_element_located(locator)).text
+        return self.wait.until(EC.visibility_of_element_located(locator)).text.strip()
 
     def visible(self, locator: Locator) -> WebElement:
         """Return visible element."""
@@ -49,8 +49,7 @@ class BasePage:
 
     def visibles(self, locator: Locator) -> List[WebElement]:
         """Return all visible elements."""
-        self.wait.until(EC.visibility_of_any_elements_located(locator))
-        return self.driver.find_elements(*locator)
+        return self.wait.until(EC.visibility_of_any_elements_located(locator))
 
     def present(self, locator: Locator) -> WebElement:
         """Return element present in DOM."""

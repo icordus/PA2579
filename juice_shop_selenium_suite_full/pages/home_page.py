@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -27,7 +28,7 @@ class HomePage(BasePage):
         By.XPATH,
         "//button[contains(@aria-label,'shopping cart') "
         "or contains(@aria-label,'Shopping Cart') "
-        "or contains(@routerlink,'basket')]",
+        "or .//span[contains(@class,'fa-shopping-cart')]]",
     )
 
     SNACKBAR = (By.CSS_SELECTOR, "simple-snack-bar")
@@ -64,10 +65,8 @@ class HomePage(BasePage):
 
     def search_for(self, query: str) -> None:
         """Search for a product."""
-        if self.count(self.SEARCH_INPUT) == 0:
-            self.click(self.SEARCH_BUTTON)
-
-        search_input = self.visible(self.SEARCH_INPUT)
+        self.click(self.SEARCH_BUTTON)
+        search_input = self.wait.until(EC.element_to_be_clickable(self.SEARCH_INPUT))
         self.driver.execute_script("arguments[0].focus();", search_input)
         try:
             search_input.clear()
@@ -93,14 +92,14 @@ class HomePage(BasePage):
         button = (
             By.XPATH,
             f"//mat-card[.//div[contains(@class,'item-name') and normalize-space()='{product_name}']]"
-            f"//button[.//span[contains(normalize-space(),'Add to Basket')] "
-            f"or contains(@aria-label,'Basket') "
+            f"//button[contains(@aria-label,'Basket') "
             f"or contains(@aria-label,'basket') "
             f"or .//mat-icon[normalize-space()='add_shopping_cart']]",
         )
 
         card_element = self.scroll_into_view(card)
-        ActionChains(self.driver).move_to_element(card_element).perform()
+        ActionChains(self.driver).move_to_element(card_element).pause(0.5).perform()
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", self.present(button))
         self.click(button)
 
     def open_product_details(self, product_name: str) -> None:
