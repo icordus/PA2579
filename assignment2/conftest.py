@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import os
+import shutil
 from pathlib import Path
 
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 
 from pages.login_page import LoginPage
@@ -35,12 +37,34 @@ def driver():
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-notifications")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--no-zygote")
+
+    browser_binary = (
+        shutil.which("google-chrome")
+        or shutil.which("chromium-browser")
+        or shutil.which("chromium")
+    )
+    if browser_binary:
+        options.binary_location = browser_binary
 
     if os.getenv("CI"):
         options.add_argument("--disable-extensions")
 
-    service = Service(ChromeDriverManager().install())
-    browser = webdriver.Chrome(service=service, options=options)
+    local_chromedriver = shutil.which("chromedriver")
+
+    try:
+        if local_chromedriver:
+            service = Service(local_chromedriver)
+            browser = webdriver.Chrome(service=service, options=options)
+        else:
+            service = Service(ChromeDriverManager().install())
+            browser = webdriver.Chrome(service=service, options=options)
+    except WebDriverException:
+        # Fallback for environments where system chromedriver is incompatible.
+        service = Service(ChromeDriverManager().install())
+        browser = webdriver.Chrome(service=service, options=options)
+
     browser.implicitly_wait(0)
     yield browser
     browser.quit()
