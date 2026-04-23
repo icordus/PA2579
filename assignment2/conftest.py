@@ -21,11 +21,13 @@ ARTIFACTS_DIR = Path("artifacts")
 
 
 def pytest_configure() -> None:
+    """Create the artifacts directory before test execution."""
     ARTIFACTS_DIR.mkdir(exist_ok=True)
 
 
 @pytest.fixture
 def driver():
+    """Provide a fresh headless Chrome WebDriver for each test."""
     options = Options()
     options.add_argument("--headless=new")
     options.add_argument("--window-size=1440,1000")
@@ -46,6 +48,7 @@ def driver():
 
 @pytest.fixture
 def login_page(driver):
+    """Open the login page and return a ready-to-use page object."""
     page = LoginPage(driver)
     page.open(BASE_URL + "#/login")
     page.dismiss_overlays()
@@ -54,6 +57,7 @@ def login_page(driver):
 
 @pytest.fixture
 def register_page(driver):
+    """Open the registration page and return a ready-to-use page object."""
     page = RegisterPage(driver)
     page.open(BASE_URL + "#/register")
     page.dismiss_overlays()

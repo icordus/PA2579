@@ -7,6 +7,7 @@ from pages.base_page import BasePage
 
 
 class RegisterPage(BasePage):
+    """Page object for registration form validation checks."""
     EMAIL = (By.ID, "emailControl")
     PASSWORD = (By.ID, "passwordControl")
     REPEAT_PASSWORD = (By.ID, "repeatPasswordControl")
@@ -21,10 +22,12 @@ class RegisterPage(BasePage):
         field.send_keys(Keys.TAB)
 
     def has_email_error(self) -> bool:
+        """Return True if any validation error is currently visible."""
         errors = self.driver.find_elements(*self.ERRORS)
         return len(errors) > 0
 
     def error_messages(self) -> list[str]:
+        """Return non-empty validation error messages."""
         return [e.text for e in self.driver.find_elements(*self.ERRORS) if e.text]
 
 

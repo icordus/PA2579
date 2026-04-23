@@ -6,14 +6,17 @@ from pages.base_page import BasePage
 
 
 class CartPage(BasePage):
+    """Page object for basket page assertions and actions."""
     TITLE = (By.CSS_SELECTOR, "app-purchase-basket h1")
     PRODUCT_NAME_CELLS = (By.CSS_SELECTOR, "mat-cell.mat-column-product, td.mat-column-product")
     CHECKOUT_BUTTON = (By.ID, "checkoutButton")
 
     def title_text(self) -> str:
+        """Return the basket page title text."""
         return self.text_of(*self.TITLE)
 
     def item_count(self) -> int:
+        """Return the number of visible basket item rows."""
         try:
             self.wait.until(
                 lambda d: len(d.find_elements(By.CSS_SELECTOR, "mat-cell.mat-column-product, td.mat-column-product")) > 0
@@ -24,5 +27,6 @@ class CartPage(BasePage):
             return 0
 
     def item_names(self) -> list[str]:
+        """Return visible basket item names."""
         cells = self.driver.find_elements(*self.PRODUCT_NAME_CELLS)
         return [c.text.strip() for c in cells if c.text.strip()]

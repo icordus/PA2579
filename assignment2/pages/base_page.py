@@ -16,6 +16,7 @@ class BasePage:
         self.wait = WebDriverWait(driver, timeout)
 
     def open(self, url: str) -> None:
+        """Navigate the browser to the given URL."""
         self.driver.get(url)
 
     def dismiss_overlays(self) -> None:
@@ -35,24 +36,30 @@ class BasePage:
             pass
 
     def find(self, by: By, value: str) -> WebElement:
+        """Wait for and return a visible element."""
         return self.wait.until(EC.visibility_of_element_located((by, value)))
 
     def click(self, by: By, value: str) -> None:
+        """Wait for and click an element."""
         self.wait.until(EC.element_to_be_clickable((by, value))).click()
 
     def type(self, by: By, value: str, text: str) -> None:
+        """Clear an input field and type text into it."""
         field = self.find(by, value)
         field.clear()
         field.send_keys(text)
 
     def text_of(self, by: By, value: str) -> str:
+        """Return visible text from an element."""
         return self.find(by, value).text
 
     def elements(self, by: By, value: str):
+        """Return matching elements after at least one is present."""
         self.wait.until(lambda d: len(d.find_elements(by, value)) > 0)
         return self.driver.find_elements(by, value)
 
     def is_visible(self, by: By, value: str) -> bool:
+        """Check whether an element is currently visible."""
         try:
             self.find(by, value)
             return True
