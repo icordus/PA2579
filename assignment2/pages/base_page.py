@@ -21,13 +21,30 @@ class BasePage:
 
     def dismiss_overlays(self) -> None:
         """Dismiss the cookie consent banner and any open dialogs (welcome banner, etc.)."""
-        # Accept cookie consent banner ("Me want it!")
-        try:
-            cookie_btns = self.driver.find_elements(By.CSS_SELECTOR, "a[aria-label='allow cookies']")
-            if cookie_btns and cookie_btns[0].is_displayed():
-                cookie_btns[0].click()
-        except Exception:
-            pass
+        # Dismiss welcome banner when present.
+        for selector in [
+            "button[aria-label='Close Welcome Banner']",
+            "button[aria-label='close-dialog']",
+        ]:
+            try:
+                buttons = self.driver.find_elements(By.CSS_SELECTOR, selector)
+                if buttons and buttons[0].is_displayed():
+                    buttons[0].click()
+            except Exception:
+                pass
+
+        # Accept/dismiss cookie message across UI variants.
+        for selector in [
+            "a[aria-label='allow cookies']",
+            "a[aria-label='dismiss cookie message']",
+        ]:
+            try:
+                cookie_btns = self.driver.find_elements(By.CSS_SELECTOR, selector)
+                if cookie_btns and cookie_btns[0].is_displayed():
+                    cookie_btns[0].click()
+            except Exception:
+                pass
+
         # Dismiss any open mat-dialog (welcome banner, challenge notifications) with Escape
         try:
             body = self.driver.find_element(By.TAG_NAME, "body")
