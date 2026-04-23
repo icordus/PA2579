@@ -2,7 +2,7 @@
 
 This folder contains a Selenium + pytest test suite for OWASP Juice Shop.
 
-- Application under test: https://juice-shop.herokuapp.com/
+- Application under test: https://demo.owasp-juice.shop/
 - Assignment repository folder: https://github.com/icordus/PA2579/tree/main/assignment2
 - Tech stack: Python, pytest, Selenium WebDriver, Page Object Model (POM)
 - Scope: 10 end-to-end UI scenarios
