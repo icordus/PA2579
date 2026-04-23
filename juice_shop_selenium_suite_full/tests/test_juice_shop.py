@@ -52,11 +52,10 @@ def test_04_product_catalog_is_visible(driver):
     assert home.product_count() >= 1
     assert len(home.get_product_names()) >= 1
 
-
 def test_05_search_filters_products(driver):
     home = HomePage(driver)
-    original_name = home.first_product_name()
-    query = original_name.split()[0]
+    product_name = home.first_product_name()
+    query = product_name.split()[0]
 
     home.search_for(query)
 

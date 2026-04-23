@@ -68,11 +68,11 @@ class HomePage(BasePage):
             self.click(self.SEARCH_BUTTON)
 
         search_input = self.visible(self.SEARCH_INPUT)
-        search_input.click()
+        self.driver.execute_script("arguments[0].focus();", search_input)
         try:
             search_input.clear()
         except Exception:
-            pass
+            self.driver.execute_script("arguments[0].value = '';", search_input)
         search_input.send_keys(query)
 
     def open_basket(self) -> None:
@@ -93,13 +93,13 @@ class HomePage(BasePage):
         button = (
             By.XPATH,
             f"//mat-card[.//div[contains(@class,'item-name') and normalize-space()='{product_name}']]"
-            f"//button[contains(@aria-label,'Basket') "
+            f"//button[.//span[contains(normalize-space(),'Add to Basket')] "
+            f"or contains(@aria-label,'Basket') "
             f"or contains(@aria-label,'basket') "
             f"or .//mat-icon[normalize-space()='add_shopping_cart']]",
         )
 
-        card_element = self.present(card)
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", card_element)
+        card_element = self.scroll_into_view(card)
         ActionChains(self.driver).move_to_element(card_element).perform()
         self.click(button)
 
