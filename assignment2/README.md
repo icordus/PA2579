@@ -64,6 +64,9 @@ assignment2/
 
 - This suite was tested on Ubuntu 24 VM running in VirtualBox.
 - On that setup, Chromium and a compatible Chrome WebDriver/Chromedriver are required.
+- Verified browser versions in that VM:
+  - `chromium --version` -> Chromium 147.0.7727.101 snap
+  - `chromium-browser --version` -> Chromium 147.0.7727.101 snap
 
 ## Setup
 
