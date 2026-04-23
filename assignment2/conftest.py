@@ -14,7 +14,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from pages.login_page import LoginPage
 from pages.checkout_page import RegisterPage
 
-BASE_URL = "https://juice-shop.herokuapp.com/"
+BASE_URL = os.getenv("JUICE_SHOP_URL", "https://demo.owasp-juice.shop/").rstrip("/")
 ADMIN_EMAIL = "admin@juice-sh.op"
 ADMIN_PASSWORD = "admin123"
 WRONG_EMAIL = "notauser@example.com"
@@ -74,7 +74,7 @@ def driver():
 def login_page(driver):
     """Open the login page and return a ready-to-use page object."""
     page = LoginPage(driver)
-    page.open(BASE_URL + "#/login")
+    page.open(f"{BASE_URL}/#/login")
     page.dismiss_overlays()
     return page
 
@@ -83,6 +83,6 @@ def login_page(driver):
 def register_page(driver):
     """Open the registration page and return a ready-to-use page object."""
     page = RegisterPage(driver)
-    page.open(BASE_URL + "#/register")
+    page.open(f"{BASE_URL}/#/register")
     page.dismiss_overlays()
     return page

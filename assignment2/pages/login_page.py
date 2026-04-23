@@ -41,7 +41,10 @@ class LoginPage(BasePage):
                 return wait.until(EC.visibility_of_element_located(locator))
             except TimeoutException:
                 continue
-        raise TimeoutException(f"No visible element found for locators: {locators}")
+        raise TimeoutException(
+            f"No visible element found for locators: {locators}. "
+            f"Current URL: {self.driver.current_url}. Title: {self.driver.title}"
+        )
 
     def login(self, email: str, password: str) -> InventoryPage:
         """Submit credentials and return the inventory page object."""
