@@ -1,0 +1,51 @@
+PA2579 Adaptive Lean Software Testing
+Assignment 2 Selenium Testing
+Student name Ilie Iulian Cordus
+
+Section 1 Project Description
+This assignment focused on automated UI testing for OWASP Juice Shop
+The objective was to build a clear and maintainable Selenium test suite with pytest
+The suite validates important user flows such as login product browsing basket actions search registration validation and logout
+The implementation follows Page Object Model to keep selectors and actions separated from test logic
+
+Section 2 What Was Implemented
+A structured test project was created in the assignment2 folder with pages tests shared fixtures and project configuration
+Page classes were implemented for base login inventory product dialog basket and registration behavior
+Shared browser setup was implemented in conftest with headless execution suitable for Ubuntu virtual machine usage
+Overlay handling was improved so cookie and welcome dialogs are dismissed before interactions
+Login interaction was improved with resilient element lookup for current Juice Shop UI behavior
+Pytest discovery was adjusted to run only the intended assignment2 tests and avoid unrelated nested suites
+The test module was renamed for clarity to test_juice_shop
+Short and clear docstrings were added in core files for readability
+README was improved with setup run guidance troubleshooting notes and environment details
+A local gitignore file was added for virtual environment caches and test artifacts
+
+Section 3 Test Scope
+Ten automated scenarios were implemented and executed
+Valid login opens product listing
+Invalid login shows an error message
+Product listing displays multiple items
+Product dialog shows name and price
+Adding item to basket updates counter
+Basket page shows added item
+Search filters visible products
+Registration validates invalid email format
+Logout returns user to unauthenticated state
+Product dialog can be closed
+
+Section 4 Environment And Tools
+Operating system Ubuntu 24 in VirtualBox
+Browser Chromium snap version 147 0 7727 101
+Test framework pytest
+Automation library Selenium WebDriver
+Language Python
+
+Section 5 Results
+The suite runs successfully in the assignment2 project
+All 10 tests pass in the validated environment
+The result confirms that the framework structure selectors synchronization and environment setup are working together correctly
+
+Section 6 Conclusion
+Assignment 2 delivered a complete and maintainable UI automation suite
+The work demonstrates practical test design reuse through fixtures and robust browser interaction handling
+The project is now in a good state for future extension with additional scenarios and CI execution
