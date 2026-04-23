@@ -1,57 +1,74 @@
-from typing import List, Tuple
-
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-Locator = Tuple[str, str]
 
 class BasePage:
-    """Reusable Selenium helpers built around explicit waits."""
+    """Base class for all page objects."""
 
-    def __init__(self, driver: WebDriver, timeout: int = 15):
+    def __init__(self, driver):
+        """Initialize page with driver and wait."""
         self.driver = driver
-        self.wait = WebDriverWait(driver, timeout)
+        self.wait = WebDriverWait(driver, 10)
 
-    def click(self, locator: Locator) -> None:
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+    def click(self, locator):
+        """Click element, fallback to JS if needed."""
+        element = self.wait.until(EC.element_to_be_clickable(locator))
+        try:
+            element.click()
+        except Exception:
+            self.driver.execute_script("arguments[0].click();", element)
 
-    def type(self, locator: Locator, value: str, clear_first: bool = True) -> None:
+    def type(self, locator, value, clear_first=True):
+        """Type text into element."""
         element = self.wait.until(EC.visibility_of_element_located(locator))
+        element.click()
         if clear_first:
-            element.clear()
+            try:
+                element.clear()
+            except Exception:
+                pass
         element.send_keys(value)
 
-    def text_of(self, locator: Locator) -> str:
-        return self.wait.until(EC.visibility_of_element_located(locator)).text
-
-    def visible(self, locator: Locator) -> WebElement:
+    def visible(self, locator):
+        """Return visible element."""
         return self.wait.until(EC.visibility_of_element_located(locator))
 
-    def visibles(self, locator: Locator) -> List[WebElement]:
-        return self.wait.until(EC.visibility_of_all_elements_located(locator))
+    def visibles(self, locator):
+        """Return all visible elements."""
+        self.wait.until(EC.visibility_of_element_located(locator))
+        return self.driver.find_elements(*locator)
 
-    def present(self, locator: Locator) -> WebElement:
+    def present(self, locator):
+        """Return element present in DOM."""
         return self.wait.until(EC.presence_of_element_located(locator))
 
-    def is_visible(self, locator: Locator, timeout: int = 5) -> bool:
-        try:
-            WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
-            return True
-        except TimeoutException:
-            return False
-
-    def wait_for_url_contains(self, value: str) -> None:
-        self.wait.until(EC.url_contains(value))
-
-    def scroll_into_view(self, locator: Locator) -> None:
-        element = self.present(locator)
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-
-    def count(self, locator: Locator) -> int:
+    def count(self, locator):
+        """Return number of matching elements."""
         return len(self.driver.find_elements(*locator))
 
-    def finds(self, locator: Locator):
-        return self.driver.find_elements(*locator)
+    def is_visible(self, locator, timeout=5):
+        """Check if element is visible."""
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator)
+            )
+            return True
+        except Exception:
+            return False
+
+    def text_of(self, locator):
+        """Return element text."""
+        return self.visible(locator).text.strip()
+
+    def scroll_into_view(self, locator):
+        """Scroll element into view."""
+        element = self.present(locator)
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'});", element
+        )
+        return element
+
+    def wait_for_url_contains(self, text):
+        """Wait until URL contains text."""
+        self.wait.until(EC.url_contains(text))
