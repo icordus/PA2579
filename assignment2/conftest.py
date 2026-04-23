@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import shutil
 from pathlib import Path
+from typing import Optional
 
 import pytest
 from selenium import webdriver
@@ -15,11 +16,47 @@ from pages.login_page import LoginPage
 from pages.checkout_page import RegisterPage
 
 BASE_URL = os.getenv("JUICE_SHOP_URL", "https://demo.owasp-juice.shop/").rstrip("/")
+_RESOLVED_BASE_URL: Optional[str] = None
 ADMIN_EMAIL = "admin@juice-sh.op"
 ADMIN_PASSWORD = "admin123"
 WRONG_EMAIL = "notauser@example.com"
 WRONG_PASSWORD = "wrongpassword"
 ARTIFACTS_DIR = Path("artifacts")
+
+
+def _url_candidates() -> list[str]:
+    """Return Juice Shop base URLs to try, in priority order."""
+    candidates = [
+        BASE_URL,
+        "https://demo.owasp-juice.shop",
+        "https://juice-shop.herokuapp.com",
+    ]
+    # Preserve order and remove duplicates.
+    return list(dict.fromkeys(url.rstrip("/") for url in candidates if url))
+
+
+def _resolve_base_url(driver) -> str:
+    """Pick the first host that loads the login page correctly."""
+    global _RESOLVED_BASE_URL
+    if _RESOLVED_BASE_URL:
+        return _RESOLVED_BASE_URL
+
+    page = LoginPage(driver)
+    for base_url in _url_candidates():
+        page.open(f"{base_url}/#/login")
+        page.dismiss_overlays()
+
+        if "application error" in driver.title.lower():
+            continue
+
+        if page.is_loaded():
+            _RESOLVED_BASE_URL = base_url
+            return _RESOLVED_BASE_URL
+
+    raise RuntimeError(
+        "Could not load Juice Shop login page from any known host. "
+        f"Tried: {_url_candidates()}. Last URL: {driver.current_url}. Title: {driver.title}"
+    )
 
 
 def pytest_configure() -> None:
@@ -73,8 +110,9 @@ def driver():
 @pytest.fixture
 def login_page(driver):
     """Open the login page and return a ready-to-use page object."""
+    base_url = _resolve_base_url(driver)
     page = LoginPage(driver)
-    page.open(f"{BASE_URL}/#/login")
+    page.open(f"{base_url}/#/login")
     page.dismiss_overlays()
     return page
 
@@ -82,7 +120,8 @@ def login_page(driver):
 @pytest.fixture
 def register_page(driver):
     """Open the registration page and return a ready-to-use page object."""
+    base_url = _resolve_base_url(driver)
     page = RegisterPage(driver)
-    page.open(f"{BASE_URL}/#/register")
+    page.open(f"{base_url}/#/register")
     page.dismiss_overlays()
     return page
