@@ -18,9 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          repository: icordus/PA2595
-          ref: main
+
       # Install the Python version used by this project.
       - name: Set up Python
         uses: actions/setup-python@v6
