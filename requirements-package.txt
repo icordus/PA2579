@@ -1,0 +1,7 @@
+--index-url https://pypi.org/simple/
+--extra-index-url https://test.pypi.org/simple/
+
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+httpx>=0.27.0
+pa2595-student-risk==0.1.8
