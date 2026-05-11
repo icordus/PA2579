@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pa2595-student-risk"
+name = "pa2579-student-risk"
 version = "0.1.11"
 description = "Decision Tree pipeline for student performance risk prediction"
 readme = "README.md"
