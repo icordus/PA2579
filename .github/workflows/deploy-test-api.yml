@@ -9,6 +9,7 @@ jobs:
 
     env:
       APP_NAME: student-risk-api
+      NAMESPACE: student-risk-api
       IMAGE_NAME: student-risk-api
       IMAGE_TAG: "0.1.10"
       NODE_IP: "192.168.0.71"
@@ -38,6 +39,8 @@ jobs:
       - name: Deploy with Helm
         run: |
           helm upgrade --install ${APP_NAME} ./helm/student-risk-api \
+            --namespace ${NAMESPACE} \
+            --create-namespace \
             --set image.repository=${IMAGE_NAME} \
             --set image.tag=${IMAGE_TAG} \
             --set image.pullPolicy=Never \
@@ -46,7 +49,7 @@ jobs:
 
       - name: Check deployment
         run: |
-          kubectl get deployments -n student-risk-api
+          kubectl get deployments -n ${NAMESPACE}
 
       - name: Smoke test /health
         run: |
