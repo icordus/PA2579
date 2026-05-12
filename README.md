@@ -15,7 +15,6 @@ To avoid data leakage, `G3` is removed from input features after creating the ta
 - `results/`: metrics and plots
 - `src/`: preprocessing, training, evaluation, prediction, API
 - `tests/`: unit and API tests
-- `app.py`: Streamlit prototype
 
 ## Setup
 1. Create and activate a virtual environment.
@@ -57,11 +56,6 @@ Health endpoint:
 Prediction endpoint:
 - `POST /predict`
 
-## Streamlit Demo
-```bash
-streamlit run app.py
-```
-
 ## Tests
 Run all tests:
 
@@ -79,6 +73,39 @@ pytest tests/api -v
 After training, expected outputs include:
 - model artifact in `models/`
 - metrics and plots in `results/`
+
+## Publishing to TestPyPI
+
+The `release.yml` workflow publishes the package to [TestPyPI](https://test.pypi.org) automatically when a version tag is pushed, or manually via `workflow_dispatch`.
+
+### 1. Create a TestPyPI account and API token
+
+1. Register at [https://test.pypi.org/account/register/](https://test.pypi.org/account/register/)
+2. Go to **Account Settings → API tokens**
+3. Click **Add API token**
+   - Token name: `github-actions`
+   - Scope: **Entire account** (or limit to this project once uploaded)
+4. Copy the generated token (starts with `pypi-`)
+
+### 2. Add the token to GitHub Actions
+
+1. Open the repository on GitHub
+2. Go to **Settings → Secrets and variables → Actions**
+3. Click **New repository secret**
+   - Name: `TESTPYPI_TOKEN`
+   - Value: paste the token from TestPyPI
+4. Click **Add secret**
+
+### 3. Trigger a release
+
+Tag a commit and push to trigger the workflow automatically:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Or run it manually from **Actions → Release Package → Run workflow**.
 
 ## Notes
 This is an educational prototype and should support, not replace, human academic decisions.

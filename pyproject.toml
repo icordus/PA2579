@@ -4,20 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pa2579-student-risk"
-version = "0.1.11"
+version = "0.1.13"
 description = "Decision Tree pipeline for student performance risk prediction"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [
-  { name = "PA2595 Group 3: Periklis, Julia, Fatima, Ilie" }
+  { name = "PA2579 Ilie" }
 ]
 dynamic = ["dependencies"]
 
 [project.scripts]
-pa2595-preprocess = "src.preprocess:preprocess"
-pa2595-train = "src.train:train"
-pa2595-evaluate = "src.evaluate:evaluate_pipeline"
-pa2595-api = "src.api:run"
+pa2579-preprocess = "src.preprocess:preprocess"
+pa2579-train = "src.train:train"
+pa2579-evaluate = "src.evaluate:evaluate_pipeline"
+pa2579-api = "src.api:run"
 
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements.txt"] }
